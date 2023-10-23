@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="CALCULE SUA NOTA CORRETAMENTE">
+    <title>Calculadora Notas ACS</title>
+    <link rel="icon" href="icon.png" type="image/png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap">
+
+    <!-- Meta Tags Open Graph (og) -->
+    <meta property="og:title" content=">Calculadora Notas ACS">
+    <meta property="og:description" content="CALCULE SUA NOTA CORRETAMENTE">
+    <meta property="og:url" content="https://heeyman.github.io/AVASeACS/calculadora.html">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            display: block;
+            margin: 0 auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #resultado {
+            text-align: center;
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        #explicacoes {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        #explicacoes p {
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        #explicacoes p strong {
+            color: #333;
+        }
+
+        #requisitos {
+            text-align: center;
+            font-size: 14px;
+            margin-top: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 20px; /* Adicionando uma margem abaixo do elemento */
+        }
+
+        #requisitos p {
+            color: #333;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        p {
+            color: #555;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+
+        #extrato {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 20px;
+            margin-top: 20px; /* Adicionando uma margem acima do elemento */
+        }
+
+        #extrato h2 {
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Calculadora de Notas ACS</h1>
+
+    <table>
+        <tr>
+            <th>Tipo de Questões</th>
+            <th>Quantidade</th>
+        </tr>
+        <tr>
+            <td>Questões de Português</td>
+            <td><input type="number" id="questoesPortugues" value="0"></td>
+        </tr>
+        <tr>
+            <td>Questões Básicas</td>
+            <td><input type="number" id="questoesBasicas" value="0"></td>
+        </tr>
+        <tr>
+            <td>Questões Específicas</td>
+            <td><input type="number" id="questoesEspecificas" value="0"></td>
+        </tr>
+    </table>
+
+    <button onclick="calcularNota()">Calcular Nota</button>
+
+    <div id="resultado"></div>
+
+    <div id="explicacoes">
+        <p><strong>Questões Específicas:</strong> Havia 30 questões valendo 60, três foram anuladas, agora 27 valem 60.</p>
+        <p>Valor de cada questão: 2,2222222222222222222222222222222</p>
+
+        <p><strong>Questões Básicas:</strong> Havia 30 questões e 4 foram anuladas, agora 26 valem 30.</p>
+        <p>Valor de cada questão: 1,1538461538461538461538461538462</p>
+
+        <p><strong>Questões de Português:</strong> Se mantêm intactas.</p>
+    </div>
+
+    <div id="extrato">
+        <h2>Extrato dos seus Cálculos</h2>
+        <ul>
+            <li><strong>Questões de Português:</strong> <span id="extratoPortugues">0</span></li>
+            <li><strong>Questões Básicas:</strong> <span id="extratoBasicas">0</span></li>
+            <li><strong>Questões Específicas:</strong> <span id="extratoEspecificas">0</span></li>
+            <li><strong>Total da soma das Notas:</strong> <span id="totalNotas">0</span></li>
+        </ul>
+    </div>
+
+    <script>
+        function calcularNota() {
+            var questoesPortugues = parseInt(document.getElementById('questoesPortugues').value);
+            var questoesBasicas = parseInt(document.getElementById('questoesBasicas').value);
+            var questoesEspecificas = parseInt(document.getElementById('questoesEspecificas').value);
+
+            var notaPortugues = questoesPortugues * 1.0;
+            var notaBasicas = questoesBasicas * 1.1538461538461538461538461538462;
+            var notaEspecificas = questoesEspecificas * 2.2222222222222222222222222222222;
+
+            var totalNotas = notaPortugues + notaBasicas + notaEspecificas;
+
+            document.getElementById('resultado').innerHTML = "Soma das Notas: " + totalNotas.toFixed(6);
+
+            // Update extrato
+            document.getElementById('extratoPortugues').textContent = notaPortugues.toFixed(6);
+            document.getElementById('extratoBasicas').textContent = notaBasicas.toFixed(6);
+            document.getElementById('extratoEspecificas').textContent = notaEspecificas.toFixed(6);
+            document.getElementById('totalNotas').textContent = totalNotas.toFixed(6);
+        }
+    </script>
+</body>
+
+</html>
